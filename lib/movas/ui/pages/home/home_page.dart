@@ -19,21 +19,24 @@ class _HomePageState extends State<HomePage> {
     });
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Center(child: Text('Home Page')),
       ),
       body: Center(
         child: Container(
           child: Column(
             children: [
-              ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      useProdService = !useProdService;
-                    });
-                  },
-                  child: Text(useProdService
-                      ? 'Use Mock Service'
-                      : 'Use Prod Service')),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        useProdService = !useProdService;
+                      });
+                    },
+                    child: Text(useProdService
+                        ? 'Use Mock Service'
+                        : 'Use Prod Service')),
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
