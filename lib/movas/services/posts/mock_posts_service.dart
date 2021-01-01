@@ -11,6 +11,7 @@ class MockPostsService extends PostsService {
 
   @override
   Future<void> getPosts() {
+    emptyItems();
     final feedItemsResponse = FeedItemsResponse.fromList(dummyFeedItems);
     feedItemsResponse$.add(feedItemsResponse);
     return null;

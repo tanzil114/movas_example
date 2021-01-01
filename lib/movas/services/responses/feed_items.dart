@@ -5,6 +5,8 @@ class FeedItemsResponse {
 
   factory FeedItemsResponse.fromList(data) => FeedItemsResponse(
       items: (data as List).map((item) => FeedItem.fromMap(item)).toList());
+
+  factory FeedItemsResponse.empty() => FeedItemsResponse(items: null);
 }
 
 class FeedItem {

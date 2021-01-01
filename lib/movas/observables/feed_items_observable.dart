@@ -8,13 +8,13 @@ class FeedItemsO {
   factory FeedItemsO.fromResponse(FeedItemsResponse response) {
     return FeedItemsO(
         items: response.items
-            .map((feedItem) => FeedItemO(
+            ?.map((feedItem) => FeedItemO(
                   id: feedItem.id,
                   userId: feedItem.userId,
                   title: feedItem.title,
                   body: feedItem.body,
                 ))
-            .toList());
+            ?.toList());
   }
 }
 
