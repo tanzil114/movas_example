@@ -1,5 +1,7 @@
 import 'package:movas_example/movas/services/responses/feed_items.dart';
 
+import 'feed_item_observable.dart';
+
 class FeedItemsO {
   FeedItemsO({this.items});
 
@@ -16,18 +18,4 @@ class FeedItemsO {
                 ))
             ?.toList());
   }
-}
-
-class FeedItemO {
-  FeedItemO({
-    this.id,
-    this.userId,
-    this.title,
-    this.body,
-  });
-
-  final int id;
-  final int userId;
-  final String title;
-  final String body;
 }
