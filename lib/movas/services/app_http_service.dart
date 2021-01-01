@@ -3,11 +3,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/material.dart';
+import 'package:movas_example/config/config.dart';
 import 'package:movas_example/helper/logger.dart';
-
-class Config {
-  static const String PRODUCTION_URL = "https://jsonplaceholder.typicode.com";
-}
 
 class AppHttpService {
   final BuildContext context;
