@@ -3,9 +3,9 @@ import 'package:movas_example/movas/router/router.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  // Provider.debugCheckInvalidValueType = <T>(T value) {
-  //   return true;
-  // };
+  Provider.debugCheckInvalidValueType = <T>(T value) {
+    return true;
+  };
   runApp(MyApp());
 }
 

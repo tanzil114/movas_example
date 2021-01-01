@@ -1,3 +1,4 @@
+import 'package:movas_example/data/dummy_feed_items.dart';
 import 'package:movas_example/movas/services/app_http_service.dart';
 import 'package:movas_example/movas/services/posts/posts_service.dart';
 import 'package:movas_example/movas/services/responses/feed_items.dart';
@@ -10,7 +11,8 @@ class MockPostsService extends PostsService {
 
   @override
   Future<void> getPosts() {
-    // TODO: implement getPosts
-    throw UnimplementedError();
+    final feedItemsResponse = FeedItemsResponse.fromList(dummyFeedItems);
+    feedItemsResponse$.add(feedItemsResponse);
+    return null;
   }
 }

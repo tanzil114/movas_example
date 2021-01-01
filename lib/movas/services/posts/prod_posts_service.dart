@@ -9,8 +9,9 @@ class ProdPostsService extends PostsService {
       : super(appHttpService, feedItemsResponse$);
 
   @override
-  Future<void> getPosts() {
-    // TODO: implement getPosts
-    throw UnimplementedError();
+  Future<void> getPosts() async {
+    final response = await appHttpService.getPosts();
+    final feedItemsResponse = FeedItemsResponse.fromList(response.data);
+    feedItemsResponse$.add(feedItemsResponse);
   }
 }
