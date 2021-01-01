@@ -39,4 +39,8 @@ class AppHttpService {
       }),
     );
   }
+
+  Future<Response<dynamic>> getPosts() {
+    return dio.get("/posts");
+  }
 }
