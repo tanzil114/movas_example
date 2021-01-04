@@ -38,9 +38,10 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   ServiceSwitch(
                       useProdService: useProdService,
-                      onChanged: (newVal) {
+                      onChanged: (newVal) async {
                         useProdService = newVal;
-                        AppConfigA.of(context).switchService();
+                        await AppConfigA.of(context)
+                            .switchService(useProduction: newVal);
                         FeedItemsA.of(context).getPosts();
                       }),
                   Expanded(

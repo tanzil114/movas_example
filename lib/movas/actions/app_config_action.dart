@@ -1,24 +1,17 @@
 import 'package:movas/provider/provider.dart';
-import 'package:movas_example/movas/observables/app_config_observable.dart';
-import 'package:movas_example/movas/services/app_config/app_config_service.dart';
-import 'package:movas_example/movas/services/posts/prod_posts_service.dart';
+
+import '../stores/app_config_store.dart';
 
 class AppConfigA {
-  AppConfigA(this.appConfigO, this.appConfigService);
+  final AppConfigStore _appConfigStore;
 
-  final AppConfigO appConfigO;
-  final AppConfigService appConfigService;
-
-  void switchService() {
-    if (appConfigO.postsService.runtimeType == ProdPostsService) {
-      appConfigService.addMockPostsService();
-      return;
-    }
-    appConfigService.addProdPostsService();
-  }
+  AppConfigA(this._appConfigStore);
 
   factory AppConfigA.of(context) => AppConfigA(
         StaticProvider.of(context),
-        StaticProvider.of(context),
       );
+
+  Future<void> switchService({bool useProduction}) async {
+    return _appConfigStore.switchService(useProduction: useProduction);
+  }
 }
