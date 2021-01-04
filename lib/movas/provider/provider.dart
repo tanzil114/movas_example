@@ -61,7 +61,6 @@ List<SingleChildWidget> serviceProviders = [
   Provider<MockPostsService>(
     create: (context) => MockPostsService(
       StaticProvider.of(context),
-      StaticProvider.of(context),
     ),
   ),
 ];

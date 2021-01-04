@@ -28,8 +28,7 @@ class AppHttpService {
         return options;
       }, onResponse: (Response response) {
         logger.info("response:");
-        logger
-            .info("HTTP Response  ${response.request.path} \n${response.data}");
+        logger.info("HTTP Response  ${response.request.path}");
       }, onError: (DioError error) {
         var data = jsonDecode(error.response.data);
         return data;
