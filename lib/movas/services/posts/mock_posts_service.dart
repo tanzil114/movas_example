@@ -8,9 +8,9 @@ class MockPostsService extends PostsService {
       : super(feedItemsResponse$);
 
   @override
-  Future<void> getPosts() {
+  Future<void> getPosts() async {
     emptyItems();
     final feedItemsResponse = FeedItemsResponse.fromList(dummyFeedItems);
-    feedItemsResponse$.add(feedItemsResponse);
+    return feedItemsResponse$.add(feedItemsResponse);
   }
 }

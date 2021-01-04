@@ -1,19 +1,26 @@
+import 'package:flutter/cupertino.dart';
 import 'package:movas/provider/provider.dart';
 import 'package:movas_example/movas/observables/app_config_observable.dart';
 import 'package:movas_example/movas/services/posts/mock_posts_service.dart';
-import 'package:movas_example/movas/services/posts/posts_service.dart';
-import 'package:movas_example/movas/services/responses/feed_items.dart';
-import 'package:rxdart/rxdart.dart';
+
+import '../observables/app_config_observable.dart';
+import '../services/posts/mock_posts_service.dart';
+import '../services/posts/prod_posts_service.dart';
 
 class AppConfigStore extends Store<AppConfigO> {
-  final PublishSubject<FeedItemsResponse> feedItemsResponse$;
-  final PublishSubject<PostsService> appConfigService$;
+  BuildContext context;
 
-  AppConfigStore(this.feedItemsResponse$, this.appConfigService$) {
+  AppConfigStore(BuildContext context) {
+    this.context = context;
     add(AppConfigO(
-      MockPostsService(feedItemsResponse$),
+      MockPostsService(StaticProvider.of(context)),
     ));
-    listen(appConfigService$,
-        (appConfigService) => add(AppConfigO(appConfigService)));
+  }
+
+  Future<void> switchService({bool useProduction}) async {
+    add(AppConfigO(useProduction
+        ? ProdPostsService(
+            StaticProvider.of(context), StaticProvider.of(context))
+        : MockPostsService(StaticProvider.of(context))));
   }
 }
