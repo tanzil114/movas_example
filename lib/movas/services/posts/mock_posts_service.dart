@@ -12,6 +12,5 @@ class MockPostsService extends PostsService {
     emptyItems();
     final feedItemsResponse = FeedItemsResponse.fromList(dummyFeedItems);
     feedItemsResponse$.add(feedItemsResponse);
-    return null;
   }
 }
