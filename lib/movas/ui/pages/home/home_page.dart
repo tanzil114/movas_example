@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movas_example/movas/actions/app_config_action.dart';
 import 'package:movas_example/movas/actions/feed_items_action.dart';
 import 'package:movas_example/movas/observables/feed_items_observable.dart';
 import 'package:movas_example/movas/ui/widgets/custom_loading_indicator.dart';
@@ -12,13 +13,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool useProdService = true;
+  bool useProdService = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      FeedItemsA.of(context).getPosts();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      FeedItemsA.of(context).getPosts(useProdService: useProdService);
-    });
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('Posts')),
@@ -27,23 +33,21 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                ServiceSwitch(
-                    useProdService: useProdService,
-                    onChanged: (newVal) {
-                      setState(() {
+            child: Consumer<FeedItemsO>(
+              builder: (context, feedItemsO, _) => Column(
+                children: [
+                  ServiceSwitch(
+                      useProdService: useProdService,
+                      onChanged: (newVal) {
                         useProdService = newVal;
-                      });
-                    }),
-                Expanded(
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Consumer<FeedItemsO>(
-                        builder: (context, feedItemsO, _) => feedItemsO
-                                    ?.items ==
-                                null
+                        AppConfigA.of(context).switchService();
+                        FeedItemsA.of(context).getPosts();
+                      }),
+                  Expanded(
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: feedItemsO?.items == null
                             ? CustomLoadingIndicator()
                             : ListView.separated(
                                 itemBuilder: (context, index) =>
@@ -54,8 +58,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

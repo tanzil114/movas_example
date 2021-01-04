@@ -1,20 +1,16 @@
 import 'package:movas/provider/provider.dart';
-import 'package:movas_example/movas/services/posts/mock_posts_service.dart';
-import 'package:movas_example/movas/services/posts/prod_posts_service.dart';
+import 'package:movas_example/movas/observables/app_config_observable.dart';
 
 class FeedItemsA {
-  FeedItemsA(this.prodPostsService, this.mockPostsService);
+  FeedItemsA(this.appConfigO);
 
-  final ProdPostsService prodPostsService;
-  final MockPostsService mockPostsService;
+  final AppConfigO appConfigO;
 
-  Future<void> getPosts({useProdService: true}) {
-    if (useProdService) return prodPostsService.getPosts();
-    return mockPostsService.getPosts();
+  Future<void> getPosts() {
+    return appConfigO.postsService.getPosts();
   }
 
   factory FeedItemsA.of(context) => FeedItemsA(
-        StaticProvider.of(context),
         StaticProvider.of(context),
       );
 }
